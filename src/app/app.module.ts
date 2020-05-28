@@ -15,6 +15,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactAddComponent } from './contact-add/contact-add.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ContactAddComponent } from './contact-add/contact-add.component';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatPaginatorModule,
     HttpClientModule,
     ReactiveFormsModule
   ],

@@ -12,7 +12,19 @@ const pool = new pg.Pool({
     port: 5432,
 });
 
+const searchContacts = (request, response) => {
+    let q = request.query['q'];
 
+    q = '%' + q + '%';
+    //console.log(q);
+    pool.query("SELECT a.contact_id, a.name, a.dob, string_agg(DISTINCT(b.email) , ',') as emails , string_agg(DISTINCT(c.phoneno) , ',') as mobile from contact_master a, email_master b, phone_master c where a.contact_id = b.contact_id and a.contact_id = c.contact_id  and (a.name SIMILAR TO $1 or c.phoneno SIMILAR TO $1 or b.email SIMILAR TO $1) group by a.contact_id  ORDER BY a.name ASC", [q], (error, results) => {
+        if (error) {
+            throw error
+        }
+        //console.log(results.rows);
+        response.status(200).json(results.rows);
+    })
+}
 
 const getContacts = (request, response) => {
     //SELECT t1.contactid, t1.dob, t1.name, t2.phoneno, t3.email FROM contact_master as t1 JOIN phone_master as t2 on t1.contactid = t2.contactid JOIN email_master as t3 on t1.contactid = t3.contactid ORDER BY t1.name AS
@@ -70,5 +82,6 @@ const addContact = (request, response) => {
 
 module.exports = {
     getContacts,
-    addContact
+    addContact,
+    searchContacts
 }

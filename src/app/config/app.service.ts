@@ -18,5 +18,11 @@ import { Contact } from '../models/contact.model';
     addContact(contact: Contact) {
       return this.http.post(this.rootURL+ "/contacts", contact);
     }
+
+    searchContact(query: string){
+      return this.http.get(this.rootURL + '/search', {
+        params:{q: query}
+      });
+    }
   
   }

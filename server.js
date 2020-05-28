@@ -13,6 +13,7 @@ app.use(
 )
 const db = require('./queries');
 
+app.get('/api/search', db.searchContacts);
 app.get('/api/contacts', db.getContacts);
 app.post('/api/contacts', db.addContact);
 app.get('/testing', (req, res) => {

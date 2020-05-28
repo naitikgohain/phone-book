@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AppService } from '../config/app.service';
 import { Contact } from '../models/contact.model';
 import { Router } from '@angular/router'
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-contact-list',
@@ -13,7 +14,12 @@ import { Router } from '@angular/router'
 })
 export class ContactListComponent implements OnInit {
 
+  @ViewChild('paginator') paginator: MatPaginator;
   searchValue = '';
+  pageIndex:number = 0;
+    pageSize:number = 4;
+    lowValue:number = 0;
+    highValue:number = 4;      
 
   constructor(private appService: AppService) { }
 
@@ -34,6 +40,7 @@ export class ContactListComponent implements OnInit {
     this.appService.getContacts("1","4").pipe(takeUntil(this.destroy$)).subscribe((contacts: any[]) => {
       //this.users = contacts;
       console.log(contacts);
+
       var tempItem: Contact[] =[];
       
       contacts.forEach(contact => {
@@ -62,8 +69,54 @@ export class ContactListComponent implements OnInit {
   viewAddContact():void {
   }
 
+
   searchContact(){
     console.log(this.searchValue);
+    this.appService.searchContact(this.searchValue).pipe(takeUntil(this.destroy$)).subscribe((results: any[]) => {
+      //console.log(results);
+      
+      
+      var tempItem: Contact[] =[];
+      
+      results.forEach(contact => {
+        let contactItem : Contact = {};
+        contactItem.contactId = contact['contact_id'];
+        contactItem.name = contact['name'];
+        contactItem.dob = contact['dob'];
+        let phoneList = contact['mobile'].split(","); 
+        let emailList = contact['emails'].split(",");
+        contactItem.phone = []
+        phoneList.forEach(phone => {
+          contactItem.phone.push(phone);
+        });
+        contactItem.email = []
+        emailList.forEach(email => {
+          contactItem.email.push(email);
+        })
+        tempItem.push(contactItem);
+        //console.log(contactItem);
+      });
+      this.paginator.firstPage();
+      this.pageIndex=0;
+      this.lowValue=0;
+      this.highValue=4;
+      this.contactList = tempItem;
+
+
+    });
   }
+
+  getPaginatorData(event){
+    console.log(event);
+    if(event.pageIndex === this.pageIndex + 1){
+       this.lowValue = this.lowValue + this.pageSize;
+       this.highValue =  this.highValue + this.pageSize;
+      }
+   else if(event.pageIndex === this.pageIndex - 1){
+      this.lowValue = this.lowValue - this.pageSize;
+      this.highValue =  this.highValue - this.pageSize;
+     }   
+      this.pageIndex = event.pageIndex;
+}
 
 }
