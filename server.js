@@ -13,8 +13,8 @@ app.use(
 )
 const db = require('./queries');
 
-app.get('/contacts', db.getContacts);
-app.post('/contacts', db.addContact);
+app.get('/api/contacts', db.getContacts);
+app.post('/api/contacts', db.addContact);
 app.get('/testing', (req, res) => {
     res.json('hellow orold');
 });

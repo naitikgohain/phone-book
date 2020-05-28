@@ -12,6 +12,8 @@ const pool = new pg.Pool({
     port: 5432,
 });
 
+
+
 const getContacts = (request, response) => {
     //SELECT t1.contactid, t1.dob, t1.name, t2.phoneno, t3.email FROM contact_master as t1 JOIN phone_master as t2 on t1.contactid = t2.contactid JOIN email_master as t3 on t1.contactid = t3.contactid ORDER BY t1.name AS
     /*pp.pool.query("SELECT t1.contactid, t1.dob, t1.name, string_agg(DISTINCT t2.phoneno, ',') FROM contact_master as t1 JOIN phone_master as t2 on t2.contactid = t1.contactid JOIN email_master as t3 on t3.contactid = t1.contactid GROUP BY t1.contactid", (error, results) => {
@@ -30,13 +32,17 @@ const getContacts = (request, response) => {
 }
 
 const addContact = (request, response) => {
-    //console.log(request);
+    console.log(request.body);
     let emailList, phoneList;
-    const { dob, name, phoneno, email } = request.body;
-    phoneList = JSON.parse(phoneno);
-    if (email != '') {
-        emailList = JSON.parse(email);
-    }
+    let j = request.body;
+    console.log(JSON.stringify(j));
+    const { name, dob, phone, email } = j;
+    phoneList = phone;
+    emailList = email;
+    //phoneList = JSON.parse(phone);
+    //if (email != '') {
+    //    emailList = JSON.parse(email);
+    //}
     pool.query('INSERT into contact_master(dob, name) values ($1, $2) RETURNING contact_master.contact_id', [dob, name], (error, results) => {
         if (error) {
             throw error
@@ -57,7 +63,7 @@ const addContact = (request, response) => {
                 })
             }
         }
-        response.status(200).json(results.rows[0].contactid)
+        response.status(200).json(results.rows[0].contact_id)
     })
 }
 

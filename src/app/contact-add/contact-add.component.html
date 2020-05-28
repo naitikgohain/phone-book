@@ -1,0 +1,100 @@
+<div class="container-md container-small text-center">
+    <div class="card p-4">
+        <span class="mat-h2 mat-title">Add a new contact</span>
+        <form>
+            <div class="container-sm text-center">
+                <div class="row">
+                    <div class="col-10">
+                        <mat-form-field style="min-width: 250px;">
+                            <mat-label>Name</mat-label>
+                            <input [(ngModel)]="newName" matInput [formControl]="nameFormControl" placeholder="Name">
+                            <mat-error *ngIf="nameFormControl.hasError('required')">
+                                Name is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10">
+                        <mat-form-field style="min-width: 250px;">
+                            <mat-label>Date of birth</mat-label>
+                            <input (dateChange)="dateChange($event.value)" matInput [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-10 px-0">
+                                    <mat-form-field style="min-width: 250px;">
+                                        <mat-label>Phone Number</mat-label>
+                                        <input [(ngModel)]="newPhone" (keyup.enter)="addPhone()" matInput [formControl]="phoneFormControl" placeholder="Phone number">
+                                        <mat-error *ngIf="phoneFormControl.hasError('minLength')">
+                                            Enter a <strong>valid</strong> phone number
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-2 center-block">
+                                    <button [disabled]="!phoneFormControl.valid" (click)="addPhone()" mat-stroked-button>Add</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10">
+                        <ul>
+                            <li *ngFor="let phone of phoneList">
+                                {{phone.phone}}
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-10 px-0">
+                                    <mat-form-field style="min-width: 250px;">
+                                        <mat-label>Email</mat-label>
+                                        <input [(ngModel)]="newEmail" (keyup.enter)="addEmail()" matInput [formControl]="emailFormControl" placeholder="example@rentomojo.com">
+                                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                            Please enter a <strong>valid</strong> email address
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-2">
+                                    <button [disabled]="!emailFormControl.valid" (click)="addEmail()" mat-stroked-button>Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10">
+
+
+                        <ul>
+                            <li *ngFor="let email of emailList">
+                                {{email.email}}
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button [disabled]="!phoneFormControl.valid || !nameFormControl.valid || !emailFormControl.valid" (click)="addContact()" mat-raised-button color="primary">Add contact</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

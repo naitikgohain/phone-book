@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
+html,
+body {
+    height: 100%;
+}
+
 body {
     margin: 0px;
     padding: 0px;
@@ -7,4 +12,13 @@ body {
 
 * {
     font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (min-width: 1200px) {
+    .container-small {
+        width: 700px;
+    }
+    .container-large {
+        width: 1500px;
+    }
 }
