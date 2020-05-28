@@ -2,7 +2,7 @@
     <div class="card p-4">
         <span class="mat-h2 mat-title">Add a new contact</span>
         <form>
-            <div class="container-sm text-center">
+            <div class="container-xs">
                 <div class="row">
                     <div class="col-10">
                         <mat-form-field style="min-width: 250px;">
@@ -26,9 +26,9 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-10 px-0">
+                        <div class="container ml-0 pl-0">
+                            <div class="row ml-0 pl-0">
+                                <div class="col ">
                                     <mat-form-field style="min-width: 250px;">
                                         <mat-label>Phone Number</mat-label>
                                         <input [(ngModel)]="newPhone" (keyup.enter)="addPhone()" matInput [formControl]="phoneFormControl" placeholder="Phone number">
@@ -36,20 +36,18 @@
                                             Enter a <strong>valid</strong> phone number
                                         </mat-error>
                                     </mat-form-field>
-                                </div>
-                                <div class="col-2 center-block">
-                                    <button [disabled]="!phoneFormControl.valid" (click)="addPhone()" mat-stroked-button>Add</button>
+                                    <button class="ml-4" [disabled]="!phoneFormControl.valid" (click)="addPhone()" mat-stroked-button>Add</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-10">
+                <div class="row justify-content-md-center">
+                    <div class="col" style="max-width: 250px;">
                         <ul>
                             <li *ngFor="let phone of phoneList">
-                                {{phone.phone}}
+                                {{phone}}
                             </li>
                         </ul>
                     </div>
@@ -57,9 +55,9 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-10 px-0">
+                        <div class="container  ml-0 pl-0">
+                            <div class="row  ml-0 pl-0">
+                                <div class="col px-0">
                                     <mat-form-field style="min-width: 250px;">
                                         <mat-label>Email</mat-label>
                                         <input [(ngModel)]="newEmail" (keyup.enter)="addEmail()" matInput [formControl]="emailFormControl" placeholder="example@rentomojo.com">
@@ -67,21 +65,19 @@
                                             Please enter a <strong>valid</strong> email address
                                         </mat-error>
                                     </mat-form-field>
-                                </div>
-                                <div class="col-2">
-                                    <button [disabled]="!emailFormControl.valid" (click)="addEmail()" mat-stroked-button>Add</button>
+                                    <button class="ml-4" [disabled]="!emailFormControl.valid" (click)="addEmail()" mat-stroked-button>Add</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-10">
+                <div class="row justify-content-md-center">
+                    <div class="col text-center" style="max-width: 250px;">
 
 
                         <ul>
                             <li *ngFor="let email of emailList">
-                                {{email.email}}
+                                {{email}}
                             </li>
                         </ul>
                     </div>

@@ -1,9 +1,10 @@
-<div class="container-md container-small">
-    <div class="card p-4">
-        <mat-form-field class="example-form-field">
-            <mat-label>Clearable input</mat-label>
+<div class="container-md container-small px-0">
+    <div class="card p-4" style="background-color: #EEEEEE;">
+
+        <mat-form-field class="mx-auto" style="max-width: 400px;min-width: 250px;">
+            <mat-label>Search by numbers, name or email</mat-label>
             <input matInput type="text" (keyup)="searchContact()" [(ngModel)]="searchValue">
-            <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+            <button mat-button *ngIf="searchValue" (click)="updateList" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
           <mat-icon>close</mat-icon>
         </button>
         </mat-form-field>
@@ -13,11 +14,19 @@
                     <mat-panel-title>
                         <div class="container">
                             <div class="row">
-                                <div class="col-3">
-                                    <div class="d-inline my-auto">
-                                        <mat-icon aria-hidden="false">person</mat-icon>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <span class="my-auto">
+                                                <mat-icon aria-hidden="false">person</mat-icon>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <h4 class="d-inline" style="text-transform: capitalize;">{{contact.name}}</h4>
+                                        </div>
                                     </div>
-                                    <h4 class="d-inline">{{contact.name}}</h4>
+
+
 
                                 </div>
                             </div>
@@ -28,14 +37,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <p>Date of birth: <span>{{contact.dob}}</span></p>
+                            <p><strong>Date of birth:</strong> <span>{{contact.dob}}</span></p>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row p-4" style="background-color: #EEEEEE; border: 1px solid #CCC; border-radius: 4px;">
                         <div class="col">
                             <div class="row">
                                 <div class="col">
-                                    <h6>Phone numbers</h6>
+                                    <h6><strong>Phone numbers</strong></h6>
                                     <ul>
                                         <li *ngFor="let phone of contact.phone">{{phone}}</li>
                                     </ul>
@@ -45,7 +54,7 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col">
-                                    <h6>Email addresses</h6>
+                                    <h6><strong>Email addresses</strong></h6>
                                     <ul>
                                         <li *ngFor="let email of contact.email">
                                             {{email}}
@@ -55,13 +64,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row pt-3">
                         <div class="col-8">
 
                         </div>
                         <div class="col-4">
-                            <button mat-stroked-button>Edit</button>
-                            <button class="ml-3" mat-flat-button color="warn">Delete</button>
+                            <button mat-stroked-button (click)="editContact(contact)">Edit</button>
+                            <button class="ml-3" (click)="deleteContact(contact.contactId)" mat-flat-button color="warn">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -69,14 +78,15 @@
             </mat-expansion-panel>
         </mat-accordion>
 
-        <mat-paginator #paginator [length]="contactList.length" [pageSize]="pageSize" (page)="getPaginatorData($event)">
+        <mat-paginator #paginator [length]="contactList.length" style="background-color: #EEEEEE;" [pageSize]="pageSize" (page)="getPaginatorData($event)">
         </mat-paginator>
 
-        <span class="text-right">
-          <button [routerLink]="'/add'" class="position-fixed" mat-fab color="primary" aria-label="Example icon button with a delete icon">
-            <mat-icon>add</mat-icon>
-          </button>
-        </span>
+        <span class="text-right mr-4" style="margin-bottom: -18px;">
+            <button class="position-fixed " [routerLink]="'/add'" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+              <mat-icon>add</mat-icon>
+            </button>
+          </span>
+
     </div>
 
 </div>

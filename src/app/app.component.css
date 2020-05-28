@@ -1,0 +1,16 @@
+.app-header-overflow {
+    background-color: #3f51b5;
+    padding-bottom: 100px;
+    z-index: -1;
+    margin-bottom: -50px;
+}
+
+.app-header-overflow h1 {
+    color: #FFF;
+    font-weight: 700;
+}
+
+.app-header-overflow h6 {
+    color: #F5F5F5;
+    font-weight: 400;
+}

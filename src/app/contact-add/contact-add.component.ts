@@ -7,12 +7,13 @@ import { AppService } from '../config/app.service';
 import { Contact } from '../models/contact.model';
 import { Phone } from '../models/phone.model';
 import { Email } from '../models/email.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contact-add',
   templateUrl: './contact-add.component.html',
   styleUrls: ['./contact-add.component.css'],
-  providers: [AppService]
+  providers: [AppService, MatSnackBar]
 })
 export class ContactAddComponent implements OnInit {
 
@@ -25,7 +26,7 @@ export class ContactAddComponent implements OnInit {
 
   contactItem: Contact = {};
 
-  constructor(private appService: AppService, private router: Router) { }
+  constructor(private _snackBar: MatSnackBar,private appService: AppService, private router: Router) { }
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -66,15 +67,28 @@ export class ContactAddComponent implements OnInit {
     this.contactItem.dob = this.newDOB;
     this.contactItem.phone = this.phoneList;
     this.contactItem.email = this.emailList;
-    console.log(this.contactItem);
-    this.appService.addContact(this.contactItem).pipe(takeUntil(this.destroy$)).subscribe((result: any) => {
+    //console.log(this.contactItem);
+    this.appService.checkUniquePhone(this.contactItem.phone).pipe(takeUntil(this.destroy$)).subscribe((result1: any) => {
       //this.users = contacts;
-      if(result==null){
-        console.log("DID noT enter");
+      console.log(result1);
+      if(result1=="BAD"){
+        
+          this._snackBar.open("Mobile number already exists");
+          this.router.navigateByUrl('/');
       }else{
-        this.router.navigateByUrl('/');
+        this.appService.addContact(this.contactItem).pipe(takeUntil(this.destroy$)).subscribe((result: any) => {
+          //this.users = contacts;
+          console.log(result.status);
+          if(result.status!=200){
+            
+              this._snackBar.open("Error in inserting data");
+          }
+            this.router.navigateByUrl('/');
+
+        });
       }
     });
+    
       
   }
 

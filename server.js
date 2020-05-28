@@ -13,7 +13,16 @@ app.use(
 )
 const db = require('./queries');
 
+app.post('/api/checkUniquePhone', db.checkUniquePhone);
+app.delete('/api/deleteContact', db.deleteContact);
+app.post('/api/addPhone', db.addPhoneToContact);
+app.post('/api/addEmail', db.addEmailToContact);
+app.put('/api/updatePhone', db.updatePhoneById);
+app.put('/api/updateEmail', db.updateEmailById);
+app.get('/api/phoneDetails', db.getPhoneDetails);
+app.get('/api/emailDetails', db.getEmailDetails);
 app.get('/api/search', db.searchContacts);
+app.put('/api/updateContact', db.updateContact);
 app.get('/api/contacts', db.getContacts);
 app.post('/api/contacts', db.addContact);
 app.get('/testing', (req, res) => {

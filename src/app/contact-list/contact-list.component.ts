@@ -21,7 +21,7 @@ export class ContactListComponent implements OnInit {
     lowValue:number = 0;
     highValue:number = 4;      
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private router: Router) { }
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -36,7 +36,14 @@ export class ContactListComponent implements OnInit {
   }*/
   
   ngOnInit(): void {
+    this.updateList();
     
+  }
+
+  viewAddContact():void {
+  }
+
+  updateList(){
     this.appService.getContacts("1","4").pipe(takeUntil(this.destroy$)).subscribe((contacts: any[]) => {
       //this.users = contacts;
       console.log(contacts);
@@ -64,9 +71,6 @@ export class ContactListComponent implements OnInit {
       this.contactList = tempItem;
       
     });
-  }
-
-  viewAddContact():void {
   }
 
 
@@ -118,5 +122,16 @@ export class ContactListComponent implements OnInit {
      }   
       this.pageIndex = event.pageIndex;
 }
+
+  editContact(item:Contact){
+    this.router.navigateByUrl('/update', { state: item });
+  }
+
+  deleteContact(id:any){
+    this.appService.deleteContact(id).pipe(takeUntil(this.destroy$)).subscribe((results: any) => {
+      //this.users = contacts;
+      this.updateList();
+    });
+  }
 
 }

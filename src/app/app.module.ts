@@ -16,12 +16,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactAddComponent } from './contact-add/contact-add.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { ContactUpdateComponent } from './contact-update/contact-update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactListComponent,
-    ContactAddComponent
+    ContactAddComponent,
+    ContactUpdateComponent
   ],
   imports: [
     BrowserModule,
