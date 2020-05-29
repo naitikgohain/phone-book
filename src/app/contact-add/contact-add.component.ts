@@ -49,15 +49,11 @@ export class ContactAddComponent implements OnInit {
     this.newDOB = event.getFullYear() + '-' + (event.getMonth() + 1) + '-' + event.getDate();
   }
   addPhone(){
-    //let phoneItem : Phone = {phone:""};
-    //phoneItem.phone=this.newPhone;
     this.phoneList.push(this.newPhone);
     this.newPhone="";
   }
 
   addEmail(){
-    //let emailItem : Email = {email: ""};
-    //emailItem.email=this.newEmail;
     this.emailList.push(this.newEmail);
     this.newEmail="";
   }
@@ -77,12 +73,7 @@ export class ContactAddComponent implements OnInit {
           this.router.navigateByUrl('/');
       }else{
         this.appService.addContact(this.contactItem).pipe(takeUntil(this.destroy$)).subscribe((result: any) => {
-          //this.users = contacts;
-          //console.log(result.status);
-          /*if(result.status!=200){
-            
-              this._snackBar.open("Error in inserting data");
-          }*/
+          
             this._snackBar.open("Contact added successfully");
             this.router.navigateByUrl('/');
 

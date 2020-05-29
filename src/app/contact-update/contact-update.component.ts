@@ -25,7 +25,6 @@ export class ContactUpdateComponent implements OnInit {
   emailList: Email[] = [];
 
   constructor(private _snackBar: MatSnackBar,private appService: AppService, private router:Router, private activatedRoute:ActivatedRoute) { 
-    console.log(this.router.getCurrentNavigation().extras.state)
     if(this.router.getCurrentNavigation().extras.state==undefined){
       console.log("go back");
       this.router.navigateByUrl('/');
@@ -33,9 +32,6 @@ export class ContactUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //console.log(this.router.getCurrentNavigation().extras);
-    console.log(history);
-    
     this.contact = history.state;
     this.fetchPhone();
     this.fetchEmail();
@@ -70,9 +66,6 @@ export class ContactUpdateComponent implements OnInit {
     this.contact.dob = event.getFullYear() + '-' + (event.getMonth() + 1) + '-' + event.getDate();
   }
   addPhone(){
-    //let phoneItem : Phone = {phone:""};
-    //phoneItem.phone=this.newPhone;
-    //this.contact.phone.push(this.newPhone);
     this.appService.addPhoneToContact(this.contact.contactId,this.newPhone).pipe(takeUntil(this.destroy$)).subscribe((results: any) => {
       //this.users = contacts;
       this.fetchPhone();
@@ -84,9 +77,6 @@ export class ContactUpdateComponent implements OnInit {
     
   }
   addEmail(){
-    //let emailItem : Email = {email: ""};
-    //emailItem.email=this.newEmail;
-    //this.contact.email.push(this.newEmail);
     this.appService.addEmailToContact(this.contact.contactId,this.newEmail).pipe(takeUntil(this.destroy$)).subscribe((results: any) => {
       //this.users = contacts;
       this.fetchEmail();

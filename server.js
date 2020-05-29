@@ -5,6 +5,9 @@ const port = 3000;
 
 const app = express();
 app.use(express.static(__dirname + '/public'));
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'angular-build', 'index.html'))
+});
 app.use(bodyParser.json())
 app.use(
     bodyParser.urlencoded({
@@ -28,6 +31,6 @@ app.post('/api/contacts', db.addContact);
 app.get('/testing', (req, res) => {
     res.json('hellow orold');
 });
-app.listen(port, () => {
+app.listen(process.env.PORT || 8080, () => {
     console.log('Started the webapp. Running on port ${port}.');
 });

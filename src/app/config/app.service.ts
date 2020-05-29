@@ -2,6 +2,10 @@ import {Injectable} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
 import { Contact } from '../models/contact.model';
 
+/*
+This file hosts all the client side API endpoints
+*/
+
 @Injectable()
   export class AppService {
   

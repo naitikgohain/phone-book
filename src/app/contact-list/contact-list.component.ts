@@ -6,6 +6,7 @@ import { Contact } from '../models/contact.model';
 import { Router } from '@angular/router'
 import { MatPaginator } from '@angular/material/paginator';
 
+
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
@@ -27,14 +28,6 @@ export class ContactListComponent implements OnInit {
 
   date : Date
   contactList: Contact[] = [];
-
-  /*contactItem : Contact = {
-        contactId:1,
-        name: "STing",
-        dob: "asdas",
-        phone: ["sadsad"],
-        email: ["sadsad"]
-  }*/
   
   ngOnInit(): void {
     this.updateList();
