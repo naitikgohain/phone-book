@@ -2,6 +2,8 @@
 
 Phone book is a web app developed with Node.js and Angular which allows user to manage their contacts.
 
+![](demo.gif)
+
 ## Requirements
 All the nodejs and angularjs libraries are inside package.json. A simple ```npm install``` will install the packages.
 
