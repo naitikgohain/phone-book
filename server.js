@@ -1,12 +1,13 @@
 const http = require('http');
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const port = 3000;
 
 const app = express();
 app.use(express.static(__dirname + '/public'));
 app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'angular-build', 'index.html'))
+    res.sendFile(path.join(__dirname + '/dist/<name-of-app>/index.html'));
 });
 app.use(bodyParser.json())
 app.use(
@@ -28,9 +29,4 @@ app.get('/api/search', db.searchContacts);
 app.put('/api/updateContact', db.updateContact);
 app.get('/api/contacts', db.getContacts);
 app.post('/api/contacts', db.addContact);
-app.get('/testing', (req, res) => {
-    res.json('hellow orold');
-});
-app.listen(process.env.PORT || 8080, () => {
-    console.log('Started the webapp. Running on port ${port}.');
-});
+app.listen(process.env.PORT || 8080);
