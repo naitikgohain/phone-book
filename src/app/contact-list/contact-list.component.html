@@ -1,4 +1,4 @@
-<div class="container-md container-small px-0">
+<div class="container-md container-small px-0" style="padding-bottom: 150px;">
     <div class="card p-4" style="background-color: #EEEEEE;">
 
         <mat-form-field class="mx-auto" style="max-width: 400px;min-width: 250px;">
@@ -37,7 +37,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <p><strong>Date of birth:</strong> <span>{{contact.dob}}</span></p>
+                            <p><strong>Date of birth: </strong> <span>{{contact.dob}}</span></p>
                         </div>
                     </div>
                     <div class="row p-4" style="background-color: #EEEEEE; border: 1px solid #CCC; border-radius: 4px;">
@@ -81,8 +81,8 @@
         <mat-paginator #paginator [length]="contactList.length" style="background-color: #EEEEEE;" [pageSize]="pageSize" (page)="getPaginatorData($event)">
         </mat-paginator>
 
-        <span class="text-right mr-4" style="margin-bottom: -18px;">
-            <button class="position-fixed " [routerLink]="'/add'" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+        <span class=" float-right text-right mr-4" style="margin-bottom: -18px;">
+            <button class="position-sticky " [routerLink]="'/add'" mat-fab color="primary" aria-label="Example icon button with a delete icon">
               <mat-icon>add</mat-icon>
             </button>
           </span>

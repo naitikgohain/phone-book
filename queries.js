@@ -154,6 +154,8 @@ const checkUniquePhone = (request, response) => {
             //console.log(results.rows[0].exists);
             if (results.rows[0].exists) {
                 response.status(200).json("BAD");
+            } else {
+                response.status(200).json("OK");
             }
         });
     }

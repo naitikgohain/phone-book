@@ -78,11 +78,12 @@ export class ContactAddComponent implements OnInit {
       }else{
         this.appService.addContact(this.contactItem).pipe(takeUntil(this.destroy$)).subscribe((result: any) => {
           //this.users = contacts;
-          console.log(result.status);
-          if(result.status!=200){
+          //console.log(result.status);
+          /*if(result.status!=200){
             
               this._snackBar.open("Error in inserting data");
-          }
+          }*/
+            this._snackBar.open("Contact added successfully");
             this.router.navigateByUrl('/');
 
         });
@@ -90,6 +91,10 @@ export class ContactAddComponent implements OnInit {
     });
     
       
+  }
+
+  cancelUpdate(){
+    this.router.navigateByUrl('/');
   }
 
 

@@ -28,7 +28,7 @@
                     <div class="col">
                         <div class="container ml-0 pl-0">
                             <div class="row ml-0 pl-0">
-                                <div class="col ">
+                                <div class="col  ml-0 pl-0">
                                     <mat-form-field style="min-width: 250px;">
                                         <mat-label>Phone Number</mat-label>
                                         <input [(ngModel)]="newPhone" (keyup.enter)="addPhone()" matInput [formControl]="phoneFormControl" placeholder="Phone number">
@@ -85,6 +85,10 @@
                 </div>
                 <div class="row">
                     <div class="col">
+
+                    </div>
+                    <div class="col">
+                        <button (click)="cancelUpdate()" mat-button>Cancel</button>
                         <button [disabled]="!phoneFormControl.valid || !nameFormControl.valid || !emailFormControl.valid" (click)="addContact()" mat-raised-button color="primary">Add contact</button>
                     </div>
                 </div>

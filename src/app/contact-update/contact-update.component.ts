@@ -7,12 +7,13 @@ import { AppService } from '../config/app.service';
 import { Contact } from '../models/contact.model';
 import { Phone } from '../models/phone.model';
 import { Email } from '../models/email.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contact-update',
   templateUrl: './contact-update.component.html',
   styleUrls: ['./contact-update.component.css'],
-  providers: [AppService]
+  providers: [AppService, MatSnackBar]
 })
 export class ContactUpdateComponent implements OnInit {
 
@@ -23,15 +24,18 @@ export class ContactUpdateComponent implements OnInit {
   phoneList: Phone[] =[];
   emailList: Email[] = [];
 
-  constructor(private appService: AppService, private router:Router, private activatedRoute:ActivatedRoute) { 
+  constructor(private _snackBar: MatSnackBar,private appService: AppService, private router:Router, private activatedRoute:ActivatedRoute) { 
     console.log(this.router.getCurrentNavigation().extras.state)
+    if(this.router.getCurrentNavigation().extras.state==undefined){
+      console.log("go back");
+      this.router.navigateByUrl('/');
+    }
   }
 
   ngOnInit(): void {
-    console.log(history.state);
-    if(history.state==null){
-      console.log("go back");
-    }
+    //console.log(this.router.getCurrentNavigation().extras);
+    console.log(history);
+    
     this.contact = history.state;
     this.fetchPhone();
     this.fetchEmail();
@@ -72,7 +76,9 @@ export class ContactUpdateComponent implements OnInit {
     this.appService.addPhoneToContact(this.contact.contactId,this.newPhone).pipe(takeUntil(this.destroy$)).subscribe((results: any) => {
       //this.users = contacts;
       this.fetchPhone();
-
+      this._snackBar.open("Phone number added.",'' ,{
+        duration: 2000,
+      });
       this.newPhone="";
     });
     
@@ -84,7 +90,9 @@ export class ContactUpdateComponent implements OnInit {
     this.appService.addEmailToContact(this.contact.contactId,this.newEmail).pipe(takeUntil(this.destroy$)).subscribe((results: any) => {
       //this.users = contacts;
       this.fetchEmail();
-
+      this._snackBar.open("Email added.",'' ,{
+        duration: 2000,
+      });
       this.newEmail="";
     });
 
@@ -96,7 +104,13 @@ export class ContactUpdateComponent implements OnInit {
       //this.users = contacts;
       if(result==null){
         console.log("DID noT enter");
+        this._snackBar.open("Unexpected error",'' ,{
+          duration: 2000,
+        });
       }else{
+        this._snackBar.open("Contact updated successfully",'' ,{
+          duration: 2000,
+        });
         this.router.navigateByUrl('/');
       }
     });
@@ -106,6 +120,9 @@ export class ContactUpdateComponent implements OnInit {
     this.appService.updateEmailById(id, email).pipe(takeUntil(this.destroy$)).subscribe((results: any[]) => {
       //this.users = contacts;
       this.fetchEmail();
+      this._snackBar.open("Email updated",'' ,{
+        duration: 2000,
+      });
     });
   }
 
@@ -113,6 +130,9 @@ export class ContactUpdateComponent implements OnInit {
     this.appService.updatePhoneById(id, phone).pipe(takeUntil(this.destroy$)).subscribe((results: any[]) => {
       //this.users = contacts;
       this.fetchPhone();
+      this._snackBar.open("Phone number updated",'' ,{
+        duration: 2000,
+      });
     });
   }
 
@@ -149,4 +169,7 @@ export class ContactUpdateComponent implements OnInit {
     });
   }
 
+  cancelUpdate(){
+    this.router.navigateByUrl('/');
+  }
 }

@@ -24,6 +24,7 @@
                         </mat-form-field>
                     </div>
                 </div>
+                <mat-divider></mat-divider>
                 <div class="row">
                     <div class="col ">
                         <div class="container  ml-0 pl-0">
@@ -59,6 +60,7 @@
                     </div>
 
                 </div>
+                <mat-divider></mat-divider>
                 <div class="row">
                     <div class="col">
                         <div class="container ml-0 pl-0">
@@ -95,6 +97,10 @@
                 </div>
                 <div class="row">
                     <div class="col">
+
+                    </div>
+                    <div class="col">
+                        <button (click)="cancelUpdate()" mat-button>Cancel</button>
                         <button [disabled]="!phoneFormControl.valid || !nameFormControl.valid || !emailFormControl.valid" (click)="updateContact()" mat-raised-button color="primary">Update contact</button>
                     </div>
                 </div>

@@ -25,6 +25,7 @@ export class ContactListComponent implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  date : Date
   contactList: Contact[] = [];
 
   /*contactItem : Contact = {
@@ -54,7 +55,10 @@ export class ContactListComponent implements OnInit {
         let contactItem : Contact = {};
         contactItem.contactId = contact['contact_id'];
         contactItem.name = contact['name'];
-        contactItem.dob = contact['dob'];
+        
+        let date = new Date(contact['dob']);
+        //console.log(date.getDate()); 
+        contactItem.dob = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
         let phoneList = contact['mobile'].split(","); 
         let emailList = contact['emails'].split(",");
         contactItem.phone = []
