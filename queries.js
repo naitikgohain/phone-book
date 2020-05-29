@@ -148,16 +148,19 @@ const checkUniquePhone = (request, response) => {
     let q = request.body;
     console.log(q);
     let phoneList = q['q'];
-
+    var uni = true;
     for (var i = 0; i < phoneList.length; i++) {
         pool.query('select exists(select 1 from phone_master where phoneno=$1)', [phoneList[i]], (error, results) => {
             //console.log(results.rows[0].exists);
             if (results.rows[0].exists) {
-                response.status(200).json("BAD");
-            } else {
-                response.status(200).json("OK");
+                uni = false;
             }
         });
+    }
+    if (uni) {
+        response.status(200).json("OK");
+    } else {
+        response.status(200).json("BAD");
     }
 }
 
